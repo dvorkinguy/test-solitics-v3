@@ -79,7 +79,6 @@ variable "node_group_name" {
   type        = string
 }
 
-# Additional EKS Specific Variables
 variable "node_desired_size" {
   description = "Desired number of nodes in the EKS node group."
   type        = number
@@ -101,48 +100,7 @@ variable "node_min_size" {
 variable "eks_version" {
   description = "Version of EKS cluster."
   type        = string
-  default     = "1.20" # Example version, adjust according to your needs
-}
-
-# Define additional variables as necessary for other configurations.
-variable "security_group_ids" {
-  description = "List of security group IDs"
-  type        = list(string)
-  default     = ["sg-0abcd1234efgh5678"]
-}
-
-variable "subnet_ids" {
-  description = "List of subnet IDs"
-  type        = list(string)
-  default     = ["subnet-0abcd1234efgh5678"]
-}
-
-variable "region_eu_west_1_cidr_block" {}
-variable "region_eu_west_2_cidr_block" {}
-variable "cluster_name" {}
-variable "ami_id" {}
-variable "instance_type" {}
-variable "key_name" {}
-variable "s3_bucket_name" {}
-# Add any other variables here as needed
-variable "aws_region" {
-  description = "AWS region."
-  type        = string
-}
-
-variable "cluster_name" {
-  description = "EKS cluster name."
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "Subnet IDs for the EKS cluster."
-  type        = list(string)
-}
-
-variable "node_group_name" {
-  description = "Name of the EKS node group."
-  type        = string
+  default     = "1.20"
 }
 
 # CloudTrail specific variables
@@ -150,12 +108,6 @@ variable "cloudtrail_name" {
   description = "Name for the CloudTrail"
   type        = string
   default     = "example-trail"
-}
-
-variable "s3_bucket_name" {
-  description = "Name for the S3 bucket"
-  type        = string
-  default     = "example-cloudtrail-logs-${random_pet.name.id}" # Consider generating this name within the module
 }
 
 # CloudWatch Log Group specific variables

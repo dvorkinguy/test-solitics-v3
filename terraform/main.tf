@@ -40,7 +40,7 @@ resource "aws_vpc" "vpc_eu_west_2" {
 }
 
 module "eks" {
-  source          = "./modules/compute/eks/main.tf"
+  source          = "./modules/compute/eks"
   cluster_name    = var.cluster_name
   subnet_ids      = module.vpc_eu_west_2.subnet_ids
   eks_version     = var.eks_version
@@ -62,7 +62,7 @@ module "ec2_instances" {
   source               = "./modules/compute/ec2"
   ami                  = var.ami_id
   instance_type        = var.instance_type
-  subnet_id            = element(module.vpc_eu_west_1.subnet_ids, 0)
+  subnet_id            = module.subnets.public_subnet_id_eu_west_1
   key_name             = var.key_name
   security_group_ids   = module.alb.security_group_ids
   iam_instance_profile = var.iam_instance_profile_arn
@@ -89,7 +89,7 @@ module "logging_monitoring" {
 }
 
 module "subnets" {
-  source = "./modules/network/subnets/main.tf"
+  source = "./modules/network/subnets"
 
   vpc_id_eu_west_1 = aws_vpc.vpc_eu_west_1.id
   public_cidr_block_eu_west_1 = "10.0.1.0/24"
@@ -103,12 +103,12 @@ module "subnets" {
 }
 
 module "iam_roles" {
-  source                  = "./modules/security/iam/main.tf"
+  source                  = "./modules/security/iam"
   eks_node_role_name      = "eks-node-role"
   eks_cluster_role_name   = "eks-cluster-role"
   custom_role_name        = "solitics-example_role"
   custom_policy_name      = "solitics-example_policy"
-  custom_policy_document  = var.custom_policy_document
+  custom_policy_document  = "var.custom_policy_document"
   s3_bucket_for_policy    = "solitics-example-bucket"
 }
 

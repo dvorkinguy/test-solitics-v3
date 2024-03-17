@@ -1,4 +1,17 @@
-// Change the alias in provider.tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.0"
+    }
+    // Include any other providers you're using here
+  }
+}
+
 provider "aws" {
   region = var.aws_region_eu_west_1
   alias  = "new-alias-1"
@@ -9,7 +22,9 @@ provider "aws" {
   alias  = "new-alias-2"
 }
 
-provider "kubernetes" {
-  alias = "new-alias"
-  // Configuration details here
-}
+# Kubernetes provider configuration
+# Make sure to define it according to your needs
+# Example:
+# provider "kubernetes" {
+#   # Your configuration here
+# }
