@@ -42,3 +42,6 @@ Thumbs.db
 # Ignore log files and directories
 *.log
 logs/
+
+
+main_old.tf

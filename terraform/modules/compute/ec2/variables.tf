@@ -1,10 +1,10 @@
-variable "instance_type" {
-  description = "The type of instance to start."
+variable "ami" {
+  description = "The AMI to use for the instance."
   type        = string
 }
 
-variable "ami" {
-  description = "The AMI to use for the instance."
+variable "instance_type" {
+  description = "The type of instance to start."
   type        = string
 }
 
@@ -16,11 +16,11 @@ variable "subnet_id" {
 variable "key_name" {
   description = "The key name of the Key Pair to use for the instance. Leave as null if not using SSH."
   type        = string
-  default     = null # Consider removing default if key_name is required.
+  default     = null
 }
 
 variable "security_group_ids" {
-  description = "A list of security group IDs to associate with the EC2 instance."
+  description = "List of security group IDs to associate with the resource"
   type        = list(string)
   default     = []
 }
@@ -48,4 +48,3 @@ variable "associate_public_ip_address" {
   type        = bool
   default     = true
 }
-
